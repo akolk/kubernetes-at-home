@@ -1,0 +1,62 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: sabnzbd-deployment
+   namespace: mediaserver
+   labels:
+     app: sabnzbd
+ spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: sabnzbd
+   template:
+     metadata:
+       labels:
+         app: sabnzbd
+     spec:
+      containers:
+         - name: sabnzbd
+           image: linuxserver/sabnzbd
+           env:
+             - name: PGID
+               value: "1000"
+             - name: PUID
+               value: "1000"
+           ports:
+             - containerPort: 6789
+           volumeMounts:
+             - mountPath: /config
+               name: sabnzbd-config
+             - mountPath: /downloads
+               name: sabnzbd-downloads
+             - mountPath: /incomplete-downloads
+               name: sabnzbd-incomplete
+      volumes:
+        - name: sabnzbd-config
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/sabnzbd-config
+        - name: sabnzbd-downloads
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/
+        - name: sabnzbd-incomplete
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/incomplete
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sabnzbd-service
+  namespace: mediaserver
+spec:
+  selector:
+    app: sabnzbd
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort

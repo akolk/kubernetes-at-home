@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sickchill
+  namespace: mediaserver
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: sickchill.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sickchill-service
+          servicePort: 8182

@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sickchill-service
+  namespace: mediaserver
+spec:
+  selector:
+    app: sickchill
+  ports:
+  - protocol: TCP
+    port: 8182
+    targetPort: 8081
+  type: NodePort
