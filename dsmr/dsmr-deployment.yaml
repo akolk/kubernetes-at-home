@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    io.kompose.service: dsmr
+  name: dsmr
+  namespace: homeautomation
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: dsmr
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: dsmr
+    spec:
+      containers:
+      - image: akolk/dsmr:latest
+        imagePullPolicy: IfNotPresent
+        name: dsmr
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        securityContext:
+          privileged: true
+      nodeSelector:
+        USB0: DSMR4
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
