@@ -1,0 +1,26 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: spotweb-deployment
+   namespace: mediaserver
+   labels:
+     app: spotweb
+ spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: spotweb
+   template:
+     metadata:
+       labels:
+         app: spotweb
+     spec:
+      containers:
+         - name: spotweb
+           image: erikdevries/rpi-spotweb
+           env:
+             - name: DB_HOST
+               value: "192.168.178.33"
+           ports:
+             - containerPort: 80
