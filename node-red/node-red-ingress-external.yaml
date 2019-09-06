@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: node-red-external
+  namespace: homeautomation
+  labels:
+    traffic-type: external
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+    #traefik.frontend.redirect.regex: ^http://(.*)
+    #traefik.frontend.redirect.replacement: https://$1
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: ingress-auth
+spec:
+  rules:
+  - host: nodered.cloud.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: node-red
+          servicePort: 1880
