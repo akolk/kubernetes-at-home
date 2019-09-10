@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgres
+  name: postgres
+  namespace: experimental
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: postgres
+    spec:
+       containers:
+       - name: postgres
+         image: postgres
+         envFrom: 
+         - configMapRef:
+             name: postgres-config
+         ports:
+         - containerPort: 5432
+         resources: {}
+         volumeMounts:
+         - mountPath: /var/lib/postgresql/data
+           name: postgresdb 
+       volumes:
+       - name: postgresdb
+         nfs:
+           server: 192.168.178.33
+           path: "/volume1/openflixr/postgres"
+status: {}

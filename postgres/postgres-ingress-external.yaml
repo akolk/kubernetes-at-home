@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: postgres-external
+  namespace: experimental
+  labels:
+    traffic-type: external
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+    #traefik.frontend.redirect.regex: ^http://(.*)
+    #traefik.frontend.redirect.replacement: https://$1
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: postgres-auth
+spec:
+  rules:
+  - host: postgres.cloud.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: postgres
+          servicePort: 5432

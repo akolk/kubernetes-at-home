@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: influxdb
+  namespace: experimental
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: postgres.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: postgres
+          servicePort: 5432
