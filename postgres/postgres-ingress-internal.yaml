@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: influxdb
+  name: postgres
   namespace: experimental
   annotations:
     traefik.frontend.rule.type: PathPrefix

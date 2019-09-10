@@ -27,6 +27,7 @@ spec:
         name: plex
         ports:
         - containerPort: 32400
+        - containerPort: 31400
         - containerPort: 3005
         - containerPort: 8324
         - containerPort: 32469

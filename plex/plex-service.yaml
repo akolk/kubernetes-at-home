@@ -15,6 +15,10 @@ spec:
     port: 32400
     targetPort: 32400
     nodePort: 32400
+  - name: "31400"
+    port: 31400
+    targetPort: 31400
+    nodePort: 31400
   - name: "3005"
     port: 3005
     targetPort: 3005

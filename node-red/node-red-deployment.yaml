@@ -4,18 +4,15 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
   creationTimestamp: null
-  generation: 1
   labels:
     io.kompose.service: node-red
+  generation: 1
   name: node-red
   namespace: homeautomation
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      run: node-red
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -25,7 +22,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        run: node-red
+        io.kompose.service: node-red
     spec:
       containers:
       - image: nodered/node-red-docker:rpi
@@ -34,11 +31,22 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        env:
+        - name: TZ
+          value: "Europe/Amsterdam"
         ports:
         - containerPort: 1880
+        volumeMounts:
+        - mountPath: /data
+          name: node-red-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      volumes:
+      - name: node-red-data
+        nfs:
+         server: 192.168.178.33
+         path: "/volume1/openflixr/node-red-data/"
 status: {}
