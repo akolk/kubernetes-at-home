@@ -1,0 +1,38 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: heimdall-deployment
+   namespace: homeautomation
+   labels:
+     app: heimdall
+ spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: heimdall
+   template:
+     metadata:
+       labels:
+         app: heimdall
+     spec:
+      containers:
+         - name: heimdall
+           image: linuxserver/heimdall
+           env:
+             - name: PGID
+               value: "1000"
+             - name: PUID
+               value: "1000"
+             - name: TZ
+               value: "Europe/Amsterdam"
+           ports:
+             - containerPort: 80
+           volumeMounts:
+             - mountPath: /config
+               name: heimdall-config
+      volumes:
+        - name: heimdall-config
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/heimdall-config

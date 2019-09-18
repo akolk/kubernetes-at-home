@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: headphones
+  name: headphones
+  namespace: mediaserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: headphones
+    spec:
+      containers:
+      - image: linuxserver/headphones
+        name: headphones
+        resources:
+          requests:
+            cpu: 2
+        env:
+        - name: TZ
+          value: "Europe/Amsterdam"
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        ports:
+        - containerPort: 8181
+        resources: {}
+        volumeMounts:
+        - mountPath: /music
+          name: media
+        - mountPath: /downloads
+          name: headphone-data
+        - mountPath: /config
+          name: headphone-config
+      restartPolicy: Always
+      volumes:
+      - name: media
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/music"
+      - name: headphone-data
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/openflixr/music"
+      - name: headphone-config
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/openflixr/headphone-config"
+status: {}

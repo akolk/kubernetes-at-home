@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: sabnzbd
+  name: radarr
   namespace: mediaserver
   annotations:
     traefik.frontend.rule.type: PathPrefix
 spec:
   rules:
-  - host: sabnzbd.internal.anjokolk.com
+  - host: radarr.internal.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: sabnzbd-service
-          servicePort: 6789
+          serviceName: radarr
+          servicePort: 7878

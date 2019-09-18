@@ -1,13 +1,16 @@
 kind: Service
 apiVersion: v1
 metadata:
+  labels:
+    app: sabnzbd
   name: sabnzbd-service
   namespace: mediaserver
 spec:
   selector:
     app: sabnzbd
   ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
-  type: NodePort
+  - name: "6789"
+    port: 6789
+    targetPort: 6789
+status:
+    loadBalancer: {}
