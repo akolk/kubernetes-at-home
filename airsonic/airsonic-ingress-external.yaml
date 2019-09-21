@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: heimdall-external
-  namespace: homeautomation
+  name: airsonic-external
+  namespace: mediaserver
   labels:
     traffic-type: external
   annotations:
@@ -10,21 +10,21 @@ metadata:
     #traefik.frontend.redirect.entryPoint: https
     #traefik.frontend.redirect.regex: ^http://(.*)
     #traefik.frontend.redirect.replacement: https://$1
-    ingress.kubernetes.io/auth-type: basic
-    ingress.kubernetes.io/auth-secret: ingress-auth
+    #ingress.kubernetes.io/auth-type: basic
+    #ingress.kubernetes.io/auth-secret: ingress-auth
 spec:
   rules:
-  - host: heimdall.cloud.anjokolk.com
+  - host: airsonic.cloud.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: heimdall-service
-          servicePort: 80
-  - host: heimdall.cloud.oraperf.com
+          serviceName: airsonic
+          servicePort: 4040
+  - host: airsonic.cloud.oraperf.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: heimdall-service
-          servicePort: 80
+          serviceName: airsonic
+          servicePort: 4040

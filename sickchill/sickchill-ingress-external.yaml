@@ -20,3 +20,10 @@ spec:
         backend:
           serviceName: sickchill-service
           servicePort: 8182
+  - host: sickchill.cloud.oraperf.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sickchill-service
+          servicePort: 8182

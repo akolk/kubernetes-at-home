@@ -25,7 +25,7 @@ spec:
         io.kompose.service: node-red
     spec:
       containers:
-      - image: nodered/node-red-docker:rpi
+      - image: nodered/node-red-docker:0.20.7-rpi-v8
         imagePullPolicy: IfNotPresent
         name: node-red
         resources: {}

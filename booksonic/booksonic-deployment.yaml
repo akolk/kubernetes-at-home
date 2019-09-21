@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.9.0 (093c756)
   creationTimestamp: null
   labels:
-    io.kompose.service: airsonic
-  name: airsonic
+    io.kompose.service: booksonic
+  name: booksonic
   namespace: mediaserver
 spec:
   replicas: 1
@@ -17,11 +17,11 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: airsonic
+        io.kompose.service: booksonic
     spec:
       containers:
-      - image: linuxserver/airsonic
-        name: airsonic
+      - image: linuxserver/booksonic
+        name: booksonic
         env:
         - name: TZ
           value: "Europe/Amsterdam"
@@ -34,22 +34,22 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /config
-          name: airsonic-config
-        - mountPath: /music
-          name: airsonic-music
+          name: booksonic-config
+        - mountPath: /audiobooks
+          name: booksonic-audiobooks
         - mountPath: /podcasts
-          name: airsonic-podcasts
+          name: booksonic-podcasts
       restartPolicy: Always
       volumes:
-      - name: airsonic-config
+      - name: booksonic-config
         nfs:
           server: 192.168.178.33
-          path: "/volume1/openflixr/airsonic/config"
-      - name: airsonic-music
+          path: "/volume1/openflixr/booksonic/config"
+      - name: booksonic-audiobooks
         nfs:
           server: 192.168.178.33
-          path: "/volume1/music"
-      - name: airsonic-podcasts
+          path: "/volume1/audiobooks"
+      - name: booksonic-podcasts
         nfs:
           server: 192.168.178.33
           path: "/volume1/podcasts"

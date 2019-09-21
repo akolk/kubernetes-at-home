@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: heimdall-external
-  namespace: homeautomation
+  name: sabnzbd-external
+  namespace: mediaserver
   labels:
     traffic-type: external
   annotations:
@@ -14,17 +14,17 @@ metadata:
     ingress.kubernetes.io/auth-secret: ingress-auth
 spec:
   rules:
-  - host: heimdall.cloud.anjokolk.com
+  - host: sabnzbd.cloud.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: heimdall-service
-          servicePort: 80
-  - host: heimdall.cloud.oraperf.com
+          serviceName: sabnzbd-service
+          servicePort: 8080
+  - host: sabnzbd.cloud.oraperf.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: heimdall-service
-          servicePort: 80
+          serviceName: sabnzbd-service
+          servicePort: 8080

@@ -21,3 +21,10 @@ spec:
         backend:
           serviceName: spotweb-service
           servicePort: 8181
+  - host: spotweb.cloud.oraperf.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spotweb-service
+          servicePort: 8181

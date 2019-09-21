@@ -20,3 +20,10 @@ spec:
         backend:
           serviceName: node-red
           servicePort: 1880
+  - host: nodered.cloud.oraperf.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: node-red
+          servicePort: 1880

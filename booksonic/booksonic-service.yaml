@@ -6,15 +6,14 @@ metadata:
     kompose.version: 1.9.0 (093c756)
   creationTimestamp: null
   labels:
-    io.kompose.service: codeserver
-  name: codeserver
-  namespace: homeautomation
+    io.kompose.service: booksonic
+  name: booksonic
+  namespace: mediaserver
 spec:
   ports:
-  - name: "8443"
-    port: 8443
-    targetPort: 8443
+  - name: "4040"
+    port: 4040
+    targetPort: 4040
+  type: NodePort
   selector:
-          io.kompose.service: codeserver 
-status:
-  loadBalancer: {}
+    io.kompose.service: booksonic

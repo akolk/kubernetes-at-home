@@ -24,8 +24,11 @@
                value: "1000"
              - name: PUID
                value: "1000"
+             - name: "TZ"
+               value: "Europe/Amsterdam"
            ports:
-             - containerPort: 6789
+             - containerPort: 8080
+             - containerPort: 9090
            volumeMounts:
              - mountPath: /config
                name: sabnzbd-config

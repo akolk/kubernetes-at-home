@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.9.0 (093c756)
   creationTimestamp: null
   labels:
-    io.kompose.service: airsonic
-  name: airsonic
+    io.kompose.service: beets
+  name: beets
   namespace: mediaserver
 spec:
   replicas: 1
@@ -17,11 +17,14 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: airsonic
+        io.kompose.service: beets
     spec:
       containers:
-      - image: linuxserver/airsonic
-        name: airsonic
+      - image: linuxserver/beets
+        name: beets
+        resources:
+          requests:
+            cpu: 1
         env:
         - name: TZ
           value: "Europe/Amsterdam"
@@ -30,27 +33,27 @@ spec:
         - name: PUID
           value: "1000"
         ports:
-        - containerPort: 4040
+        - containerPort: 8337
         resources: {}
         volumeMounts:
-        - mountPath: /config
-          name: airsonic-config
         - mountPath: /music
-          name: airsonic-music
-        - mountPath: /podcasts
-          name: airsonic-podcasts
+          name: media
+        - mountPath: /downloads
+          name: beets-data
+        - mountPath: /config
+          name: beets-config
       restartPolicy: Always
       volumes:
-      - name: airsonic-config
-        nfs:
-          server: 192.168.178.33
-          path: "/volume1/openflixr/airsonic/config"
-      - name: airsonic-music
+      - name: media
         nfs:
           server: 192.168.178.33
           path: "/volume1/music"
-      - name: airsonic-podcasts
+      - name: beets-data
         nfs:
           server: 192.168.178.33
-          path: "/volume1/podcasts"
+          path: "/volume1/openflixr/music"
+      - name: beets-config
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/openflixr/beets/config"
 status: {}
