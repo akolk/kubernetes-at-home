@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    io.kompose.service: guacd
+  name: guacd
+  namespace: homeautomation
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: desktop.cloud.oraperf.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: guacd
+          servicePort: 4822

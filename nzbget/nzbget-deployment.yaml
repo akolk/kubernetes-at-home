@@ -1,0 +1,50 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: nzbget-deployment
+   namespace: mediaserver
+   labels:
+     app: nzbget
+ spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: nzbget
+   template:
+     metadata:
+       labels:
+         app: nzbget
+     spec:
+      containers:
+         - name: nzbget
+           image: linuxserver/nzbget
+           env:
+             - name: PGID
+               value: "1000"
+             - name: PUID
+               value: "1000"
+             - name: "TZ"
+               value: "Europe/Amsterdam"
+           ports:
+             - containerPort: 6789
+           volumeMounts:
+             - mountPath: /config
+               name: nzbget-config
+             - mountPath: /downloads
+               name: nzbget-downloads
+             - mountPath: /incomplete-downloads
+               name: nzbget-incomplete
+      volumes:
+        - name: nzbget-config
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/nzbget/config
+        - name: nzbget-downloads
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/nzbget/downloads
+        - name: nzbget-incomplete
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/nzbget/incomplete

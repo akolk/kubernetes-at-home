@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nzbget-service
+  namespace: mediaserver
+spec:
+  selector:
+    app: nzbget
+  ports:
+  - protocol: TCP
+    port: 6789
+    targetPort: 6789
+  type: NodePort
