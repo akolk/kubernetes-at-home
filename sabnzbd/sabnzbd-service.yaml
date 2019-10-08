@@ -8,6 +8,11 @@ spec:
     app: sabnzbd
   ports:
   - protocol: TCP
+    name: "sabnzbd"
     port: 8080
     targetPort: 8080
+  - protocol: TCP
+    name: "sabnzbd-adm"
+    port: 9090
+    targetPort: 9090
   type: NodePort

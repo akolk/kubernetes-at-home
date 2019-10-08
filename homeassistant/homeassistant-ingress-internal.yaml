@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: homeautomation
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: hass.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: homeassistant
+          servicePort: 8123

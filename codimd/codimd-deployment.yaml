@@ -1,0 +1,54 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: codimd-deployment
+   namespace: homeautomation
+   labels:
+     app: codimd
+ spec:
+   replicas: 1
+   selector:
+      matchLabels:
+        app: codimd
+   template:
+     metadata:
+       labels:
+         app: codimd
+     spec:
+      containers:
+         - name: codimd
+           image: linuxserver/codimd
+           env:
+             - name: PGID
+               value: "1000"
+             - name: PUID
+               value: "1000"
+             - name: TZ
+               value: "Europe/Amsterdam"
+             - name: DB_HOST
+               value: "192.168.178.33"
+             - name: DB_PORT
+               value: "3306"
+             - name: DB_USER
+               value: "codimd"
+             - name: DB_PASS
+               value: "codimd"
+             - name: DB_NAME
+               value: "codimd"
+             - name: CMD_GITHUB_CLIENTID
+               value: "9334b1496acf2981777e"
+             - name: CMD_GITHUB_CLIENTSECRET
+               value: "2ff498e9087242fec08402bcbe930b3a84407ac1"
+             - name: CMD_DOMAIN
+               value: "codimd.cloud.oraperf.com"
+           ports:
+             - containerPort: 3000
+           volumeMounts:
+             - mountPath: /config
+               name: codimd-config
+      volumes:
+        - name: codimd-config
+          nfs:
+            server: 192.168.178.33
+            path: /volume1/openflixr/codimd/config

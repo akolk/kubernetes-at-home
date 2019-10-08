@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grocy
+  namespace: homeautomation
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: grocy.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grocy
+          servicePort: 6781

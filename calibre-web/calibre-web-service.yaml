@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.9.0 (093c756)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: calibre-web
+  name: calibre-web
+  namespace: mediaserver
+spec:
+  ports:
+  - name: "8083"
+    port: 8083
+    targetPort: 8083
+  type: NodePort
+  selector:
+    io.kompose.service: calibre-web

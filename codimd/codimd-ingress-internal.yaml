@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: codimd
+  namespace: homeautomation
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: codimd.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: codimd-service
+          servicePort: 3000

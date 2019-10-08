@@ -5,9 +5,9 @@ metadata:
     deployment.kubernetes.io/revision: "1"
   creationTimestamp: null
   labels:
-    io.kompose.service: node-red
+    io.kompose.service: grocy
   generation: 1
-  name: node-red
+  name: grocy
   namespace: homeautomation
 spec:
   progressDeadlineSeconds: 600
@@ -22,31 +22,36 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: node-red
+        io.kompose.service: grocy
     spec:
       containers:
-      - image: nodered/node-red:latest-12
+      - image: linuxserver/grocy
         imagePullPolicy: IfNotPresent
-        name: node-red
+        name: grocy
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         env:
         - name: TZ
           value: "Europe/Amsterdam"
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
         ports:
-        - containerPort: 1880
+        - containerPort: 6781
+        - containerPort: 80
         volumeMounts:
-        - mountPath: /data
-          name: node-red-data
+        - mountPath: /config
+          name: grocy-config
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: node-red-data
+      - name: grocy-config
         nfs:
          server: 192.168.178.33
-         path: "/volume1/openflixr/node-red-data/"
+         path: "/volume1/openflixr/grocy/config"
 status: {}

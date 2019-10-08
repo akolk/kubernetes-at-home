@@ -5,9 +5,9 @@ metadata:
     deployment.kubernetes.io/revision: "1"
   creationTimestamp: null
   labels:
-    io.kompose.service: node-red
+    io.kompose.service: homeassistant
   generation: 1
-  name: node-red
+  name: homeassistant
   namespace: homeautomation
 spec:
   progressDeadlineSeconds: 600
@@ -22,12 +22,12 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: node-red
+        io.kompose.service: homeassistant
     spec:
       containers:
-      - image: nodered/node-red:latest-12
+      - image: homeassistant/home-assistant
         imagePullPolicy: IfNotPresent
-        name: node-red
+        name: homeassistant
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -35,18 +35,18 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
         ports:
-        - containerPort: 1880
+        - containerPort: 8123
         volumeMounts:
-        - mountPath: /data
-          name: node-red-data
+        - mountPath: /config
+          name: homeassistant-config
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: node-red-data
+      - name: homeassistant-config
         nfs:
          server: 192.168.178.33
-         path: "/volume1/openflixr/node-red-data/"
+         path: "/volume1/openflixr/homeassistant/"
 status: {}

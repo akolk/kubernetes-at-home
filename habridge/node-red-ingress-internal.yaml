@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: node-red
+  namespace: homeautomation
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: nodered.internal.anjokolk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: node-red
+          servicePort: 1880

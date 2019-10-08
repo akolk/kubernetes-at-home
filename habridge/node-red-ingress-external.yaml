@@ -1,30 +1,29 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: sabnzbd-external
-  namespace: mediaserver
+  name: node-red-external
+  namespace: homeautomation
   labels:
     traffic-type: external
   annotations:
     traefik.frontend.rule.type: PathPrefix
-    #traefik.frontend.redirect.entryPoint: https
     #traefik.frontend.redirect.regex: ^http://(.*)
     #traefik.frontend.redirect.replacement: https://$1
     ingress.kubernetes.io/auth-type: basic
     ingress.kubernetes.io/auth-secret: ingress-auth
 spec:
   rules:
-  - host: sabnzbd.cloud.oraperf.com
+  - host: nodered.cloud.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: sabnzbd-service
-          servicePort: 8080
-  - host: sabnzbd.cloud.anjokolk.com
+          serviceName: node-red
+          servicePort: 1880
+  - host: nodered.cloud.oraperf.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: sabnzbd-service
-          servicePort: 8080
+          serviceName: node-red
+          servicePort: 1880

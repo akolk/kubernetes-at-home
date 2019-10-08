@@ -1,24 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: sabnzbd
+  name: ubooquity
   namespace: mediaserver
   annotations:
     traefik.frontend.rule.type: PathPrefix
 spec:
   rules:
-  - host: sabnzbd.internal.anjokolk.com
+  - host: ebooks.internal.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: sabnzbd-service
-          servicePort: 8080
-  - host: sabnzbd-adm.internal.anjokolk.com
+          serviceName: ubooquity
+          servicePort: 2202
+  - host: ebooks-adm.internal.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: sabnzbd-service
-          servicePort: 9090
-
+          serviceName: ubooquity
+          servicePort: 2203
