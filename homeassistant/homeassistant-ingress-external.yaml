@@ -1,14 +1,15 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: homeassistant
+  name: homeassistant-external
   namespace: homeautomation
   labels:
     traffic-type: external
   annotations:
     traefik.frontend.rule.type: PathPrefix
-    #traefik.frontend.redirect.regex: ^http://(.*)
-    #traefik.frontend.redirect.replacement: https://$1
+    traefik.frontend.redirect.entryPoint: https
+    traefik.frontend.redirect.regex: ^http://(.*)
+    traefik.frontend.redirect.replacement: https://$1
     #ingress.kubernetes.io/auth-type: basic
     #ingress.kubernetes.io/auth-secret: ingress-auth
 spec:

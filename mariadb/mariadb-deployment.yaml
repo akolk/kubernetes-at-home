@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: mariadb
+  name: mariadb
+  namespace: homeautomation
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mariadb
+    spec:
+       containers:
+       - name: mariadb
+         image: linuxserver/mariadb
+         env:
+         - name: TZ
+           value: "Europe/Amsterdam"
+         - name: PGID
+           value: "1000"
+         - name: PUID
+           value: "1000"
+         - name: MYSQL_ROOT_PASSWORD
+           value: "root"
+         ports:
+         - containerPort: 3306 
+         resources: {}
+         volumeMounts:
+         - mountPath: /config
+           name: mariadbconfig 
+       volumes:
+       - name: mariadbconfig
+         nfs:
+           server: 192.168.178.33
+           path: "/volume1/openflixr/mariadb/config"
+status: {}

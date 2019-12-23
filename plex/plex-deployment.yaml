@@ -50,6 +50,8 @@ spec:
           value: "latest"
         - name: PLEX_CLAIM
           value: "claim-95acGW1rp4P7Yyhe7SoP"
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "all"
         resources: {}
         volumeMounts:
         - mountPath: /data/tvshows
@@ -75,13 +77,13 @@ spec:
       - name: mediacourses
         nfs:
           server: 192.168.178.33
-          path: "/volume1/Courses"
+          path: "/volume2/Courses"
       - name: library
         nfs:
           server: 192.168.178.33
-          path: "/volume1/plexconfig/"
+          path: "/volume1/openflixr/plex/config/"
       - name: mediadocs
         nfs:
           server: 192.168.178.33
-          path: "/volume1/documentaries/"
+          path: "/volume2/documentaries/"
 status: {}

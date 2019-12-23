@@ -1,0 +1,33 @@
+apiVersion: voyager.appscode.com/v1beta1
+kind: Ingress
+metadata:
+  name: auth-ingress
+  namespace: default
+spec:
+  frontendRules:
+  - port: 80
+    auth:
+      oauth:
+      - host: voyager.appscode.ninja
+        authBackend: auth-be
+        authPath: /oauth2/auth
+        signinPath: /oauth2/start
+        paths: 
+        - /app
+  rules:
+  - host: voyager.appscode.ninja
+    http:
+      paths:
+      - path: /health
+        backend:
+          serviceName: test-server
+          servicePort: 80
+      - path: /app
+        backend:
+          serviceName: test-server
+          servicePort: 80
+      - path: /oauth2
+        backend:
+          name: auth-be
+          serviceName: oauth2-proxy
+          servicePort: 4180

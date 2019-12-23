@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: codimd-external
+  name: mariadb-external
   namespace: homeautomation
   labels:
     traffic-type: external
@@ -10,21 +10,21 @@ metadata:
     traefik.frontend.redirect.entryPoint: https
     traefik.frontend.redirect.regex: ^http://(.*)
     traefik.frontend.redirect.replacement: https://$1
-    #ingress.kubernetes.io/auth-type: basic
-    #ingress.kubernetes.io/auth-secret: ingress-auth
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: ingress-auth
 spec:
   rules:
-  - host: codimd.cloud.anjokolk.com
+  - host: mariadb.cloud.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: codimd-service
-          servicePort: 3000
-  - host: codimd.cloud.oraperf.com
+          serviceName: mariadb
+          servicePort: 3306
+  - host: mariadb.cloud.oraperf.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: codimd-service
-          servicePort: 3000
+          serviceName: mariadb
+          servicePort: 3306

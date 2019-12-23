@@ -1,18 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: null
   labels:
     io.kompose.service: homeassistant
-  generation: 1
   name: homeassistant
   namespace: homeautomation
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -26,7 +20,7 @@ spec:
     spec:
       containers:
       - image: homeassistant/home-assistant
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: homeassistant
         resources: {}
         terminationMessagePath: /dev/termination-log

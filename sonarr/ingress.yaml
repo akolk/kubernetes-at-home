@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: influxdb
-  namespace: homeautomation
+  name: couchpotato
+  namespace: mediaserver
   annotations:
     traefik.frontend.rule.type: PathPrefix
 spec:
   rules:
-  - host: influxdb.internal.anjokolk.com
+  - host: couchpotato.internal.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: influxdb
-          servicePort: 8086
+          serviceName: couchpotato
+          servicePort: 5050

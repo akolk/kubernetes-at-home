@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     io.kompose.service: postgres
-  name: psotgres
+  name: postgres
   namespace: experimental
 spec:
   type: NodePort

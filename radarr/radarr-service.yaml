@@ -1,20 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yaml
-    kompose.version: 1.9.0 (093c756)
-  creationTimestamp: null
   labels:
     io.kompose.service: radarr
   name: radarr
   namespace: mediaserver
 spec:
-  ports:
-  - name: "7878"
-    port: 7878
-    targetPort: 7878
   selector:
     io.kompose.service: radarr
-status:
-  loadBalancer: {}
+  ports:
+  - protocol: TCP
+    port: 7878
+    targetPort: 7878
+  type: NodePort

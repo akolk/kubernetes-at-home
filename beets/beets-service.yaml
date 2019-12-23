@@ -11,10 +11,8 @@ metadata:
   namespace: mediaserver
 spec:
   ports:
-  - name: "8337"
+  - protocol: TCP
     port: 8337
     targetPort: 8337
-  selector:
-    io.kompose.service: beets
 status:
   loadBalancer: {}

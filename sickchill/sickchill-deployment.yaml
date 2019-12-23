@@ -23,6 +23,8 @@
                value: "1000"
              - name: PUID
                value: "1000"
+             - name: TZ
+               value: "Europe/Amsterdam"
            ports:
              - containerPort: 8081
            volumeMounts:

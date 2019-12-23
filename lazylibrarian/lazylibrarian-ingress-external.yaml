@@ -1,30 +1,30 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: codimd-external
-  namespace: homeautomation
+  name: lazylibrarian-external
+  namespace: mediaserver
   labels:
     traffic-type: external
   annotations:
     traefik.frontend.rule.type: PathPrefix
     traefik.frontend.redirect.entryPoint: https
     traefik.frontend.redirect.regex: ^http://(.*)
-    traefik.frontend.redirect.replacement: https://$1
+    #traefik.frontend.redirect.replacement: https://$1
     #ingress.kubernetes.io/auth-type: basic
-    #ingress.kubernetes.io/auth-secret: ingress-auth
+    ingress.kubernetes.io/auth-secret: ingress-auth
 spec:
   rules:
-  - host: codimd.cloud.anjokolk.com
+  - host: librarian.cloud.anjokolk.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: codimd-service
-          servicePort: 3000
-  - host: codimd.cloud.oraperf.com
+          serviceName: lazylibrarian-service
+          servicePort: 5299
+  - host: librarian.cloud.oraperf.com
     http:
       paths:
       - path: /
         backend:
-          serviceName: codimd-service
-          servicePort: 3000
+          serviceName: lazylibrarian-service
+          servicePort: 5299

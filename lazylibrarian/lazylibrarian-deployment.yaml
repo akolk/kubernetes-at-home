@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: lazylibrarian-deployment
+  namespace: mediaserver
+  labels:
+     app: lazylibrarian
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: lazylibrarian
+  template:
+    metadata:
+      labels:
+         app: lazylibrarian
+    spec:
+      containers:
+      - image: linuxserver/lazylibrarian
+        name: lazylibrarian
+        env:
+        - name: TZ
+          value: "Europe/Amsterdam"
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        ports:
+        - containerPort: 5299
+        resources: {}
+        volumeMounts:
+        - mountPath: /config
+          name: lazylibrarian-config
+        - mountPath: /books
+          name: lazylibrarian-ebooks
+        - mountPath: /downloads
+          name: lazylibrarian-downloads
+        - mountPath: /audiobooks
+          name: lazylibrarian-audio
+        - mountPath: /calibre
+          name: lazylibrarian-calibre
+      restartPolicy: Always
+      volumes:
+      - name: lazylibrarian-config
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/openflixr/lazylibrarian/config"
+      - name: lazylibrarian-ebooks
+        nfs:
+          server: 192.168.178.33
+          path: "/volume2/ebooks"
+      - name: lazylibrarian-calibre
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/calibre"
+      - name: lazylibrarian-audio
+        nfs:
+          server: 192.168.178.33
+          path: "/volume2/audiobooks"
+      - name: lazylibrarian-downloads
+        nfs:
+          server: 192.168.178.33
+          path: "/volume1/openflixr/completed/books"
+status: {}

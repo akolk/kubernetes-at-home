@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sonarr
+  name: sonarr-service
+  namespace: mediaserver
+spec:
+  selector:
+    app: sonarr
+  ports:
+  - protocol: TCP
+    port: 8989
+    targetPort: 8989
+status:
+  loadBalancer: {}

@@ -1,53 +1,54 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  labels:
-    io.kompose.service: radarr
-  name: radarr
+  name: sonarr-deployment
   namespace: mediaserver
+  labels:
+    app: sonarr
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.service: radarr
+        app: sonarr
     spec:
       containers:
-      - image: linuxserver/radarr
-        name: radarr
+      - image: linuxserver/sonarr
+        name: sonarr
         env:
-        - name: TZ
-          value: "Europe/Amsterdam"
         - name: PGID
           value: "1000"
         - name: PUID
           value: "1000"
-        - name: UMASK_SET
-          value: "022"
+        - name: TZ
+          value: "Europe/Amsterdam"
         ports:
-        - containerPort: 7878
+        - containerPort: 8989
         resources: {}
         volumeMounts:
-        - mountPath: /movies
-          name: media
+        - mountPath: /tv
+          name: sonarr-media
         - mountPath: /downloads
-          name: radarr-data
+          name: sonarr-data
         - mountPath: /config
-          name: radarr-config
+          name: sonarr-config
       restartPolicy: Always
       volumes:
-      - name: media
+      - name: sonarr-media
         nfs:
           server: 192.168.178.33
-          path: "/volume2/film2"
-      - name: radarr-data
+          path: "/volume1/Series"
+      - name: sonarr-data
         nfs:
           server: 192.168.178.33
           path: "/volume1/openflixr/"
-      - name: radarr-config
+      - name: sonarr-config
         nfs:
           server: 192.168.178.33
-          path: "/volume1/openflixr/radarr-config"
+          path: "/volume1/openflixr/sonarr/config"
 status: {}

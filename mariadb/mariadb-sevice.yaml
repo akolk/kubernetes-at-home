@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: influxdb
-  name: influxdb
+    io.kompose.service: mariadb
+  name: mariadb
   namespace: homeautomation
 spec:
   selector:
-    io.kompose.service: influxdb
+    io.kompose.service: mariadb
   ports:
   - protocol: TCP
-    port: 8086
-    targetPort: 8086
+    port: 3306
+    targetPort: 3306
 status:
   loadBalancer: {}

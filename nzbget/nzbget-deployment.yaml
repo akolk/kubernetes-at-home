@@ -43,8 +43,8 @@
         - name: nzbget-downloads
           nfs:
             server: 192.168.178.33
-            path: /volume1/openflixr/nzbget/downloads
+            path: /volume1/openflixr/
         - name: nzbget-incomplete
           nfs:
             server: 192.168.178.33
-            path: /volume1/openflixr/nzbget/incomplete
+            path: /volume1/openflixr/incomplete
